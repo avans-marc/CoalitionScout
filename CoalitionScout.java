@@ -52,7 +52,45 @@ public class CoalitionScout {
             // geen meerderheid => null teruggeven
             return null;
         }
-        
 
+    }
+
+    public void finalizeElection(Map<Party, Integer> result) {
+        this.electionResult = result;
+    }
+
+    public void exploreCoalitions(){
+        //exception genereren
+        if (electionResult == null) {
+            throw new IllegalStateException("Results zijn nog niet bekend.");
+        }
+
+        //kijk voor elke party met findPartners.
+        for (Party lead : electionResult.keySet()) {
+            List<Party> partners = findPartners(lead, new ArrayList<>(electionResult.keySet()));
+            if (partners != null) {
+                addPossibility(lead, partners);
+            }
+        }
+    }
+
+    public void leakDocuments(){
+        //exception genereren
+        if (electionResult == null) {
+            throw new IllegalStateException("Results zijn nog niet bekend.");
+        }
+
+        System.out.println("Mogelijke coalities gevormd door " + name + ":");
+
+        for (Party lead : electionResult.keySet()) {
+            List<Party> partners = findPartners(lead, new ArrayList<>(electionResult.keySet()));
+            if (partners != null) {
+                System.out.println(lead.getName() + " wilt coalitieverkenning met: ");
+                for (Party partner : partners) {
+                    System.out.println(partner.getName() + " ");
+                }
+                System.out.println();
+            }
+        }
     }
 }
