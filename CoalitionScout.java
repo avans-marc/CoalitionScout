@@ -87,9 +87,7 @@ public class CoalitionScout {
             if (partners != null) {
                 System.out.println(lead.getName() + " wilt coalitieverkenning met: ");
                 for (Party partner : partners) {
-                    if (lead != partner) {
-                        System.out.println(partner.getName() + " ");
-                    }
+                    System.out.println(partner.getName() + " ");
                 }
                 System.out.println();
             }
